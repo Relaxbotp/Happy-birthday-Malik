@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Happy Birthday Malek 🎂</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;800&family=Playfair+Display:ital,wght@1,700&family=Lalezar&family=Great+Vibes&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;800&family=Playfair+Display:ital,wght@1,700&family=Great+Vibes&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -14,8 +14,8 @@
         }
 
         body {
-            background-color: #0a0a0a;
-            background-image: radial-gradient(circle at center, #1a1510 0%, #0a0a0a 100%);
+            background-color: #050505;
+            background-image: radial-gradient(circle at center, #1a1510 0%, #050505 100%);
             color: #fff;
             height: 100dvh;
             display: flex;
@@ -24,7 +24,7 @@
             overflow: hidden;
         }
 
-        /* ================= الصفحة الأولى (الكارت) ================= */
+        /* ================= المشهد الأول (الكارت) ================= */
         .card-page {
             width: 90%;
             max-width: 380px;
@@ -34,15 +34,12 @@
             padding: 25px 20px;
             text-align: center;
             box-shadow: 0 0 30px rgba(212, 175, 55, 0.15);
-            transition: all 0.8s ease;
-            position: relative;
+            transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            position: absolute;
             z-index: 10;
         }
 
-        .bear-icon {
-            font-size: 50px;
-            margin-bottom: 5px;
-        }
+        .bear-icon { font-size: 50px; margin-bottom: 5px; }
 
         .friend-name {
             font-family: 'Playfair Display', serif;
@@ -67,11 +64,11 @@
             padding: 15px;
             border-radius: 12px;
             border: 1px solid #33291c;
-            min-height: 140px;
+            min-height: 160px;
+            margin-bottom: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 15px;
         }
 
         .message-text {
@@ -82,18 +79,10 @@
             text-align: center;
         }
 
-        /* الخطوط المزخرفة */
-        .fancy-ar {
-            font-family: 'Lalezar', cursive;
-            color: #d4af37;
-            font-size: 20px;
-        }
-
-        .fancy-en {
-            font-family: 'Great Vibes', cursive;
+        .highlight {
             color: #00ffff;
-            font-size: 24px;
-            direction: ltr;
+            font-weight: 800;
+            font-size: 18px;
         }
 
         .from-relax {
@@ -105,7 +94,6 @@
 
         .from-relax span { color: #d4af37; }
 
-        /* زر الانتقال (مخفي في البداية) */
         .next-btn {
             background: linear-gradient(45deg, #d4af37, #fce07e);
             border: none;
@@ -118,100 +106,103 @@
             opacity: 0;
             transform: translateY(20px);
             transition: all 0.5s ease;
-            display: none; /* مخفي */
+            display: none;
         }
 
-        .next-btn.show {
-            opacity: 1;
-            transform: translateY(0);
-            display: inline-block;
-        }
+        .next-btn.show { opacity: 1; transform: translateY(0); display: inline-block; }
 
-        /* ================= الصفحة الثانية (الدباديب) ================= */
+        /* ================= المشهد الثاني (الأنيميشن) ================= */
         .scene-page {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: #0a0a0a;
             display: flex;
             justify-content: center;
-            align-items: flex-end;
-            padding-bottom: 20vh;
+            align-items: center;
             opacity: 0;
             pointer-events: none;
             transition: opacity 1s ease;
             z-index: 5;
         }
 
-        .scene-page.show {
-            opacity: 1;
-            pointer-events: auto;
+        .scene-page.show { opacity: 1; pointer-events: auto; }
+
+        /* خط الأرض عشان الدباديب متبقاش طايرة */
+        .ground-line {
+            position: absolute;
+            bottom: 30%;
+            width: 80%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #d4af37, transparent);
         }
 
         .bears-container {
+            position: relative;
             display: flex;
             justify-content: center;
             align-items: flex-end;
-            position: relative;
             width: 100%;
+            max-width: 350px;
+            height: 150px;
         }
 
-        /* الدبدوب الأبيض (ريلاكس) */
+        /* دبدوب ريلاكس (الأبيض) */
         .bear-relax {
             font-size: 80px;
-            position: relative;
-            transform: translateX(-200px); /* خارج الشاشة */
-            transition: transform 2.5s ease-in-out;
+            position: absolute;
+            left: 0;
+            transform: translateX(-100px);
             filter: drop-shadow(0 10px 10px rgba(0,0,0,0.5));
+            z-index: 2;
+            transition: transform 0.1s; /* للحركة الناعمة */
         }
 
-        /* الدبدوب التاني (مالك) */
+        /* دبدوب مالك (البني) */
         .bear-malek {
             font-size: 80px;
-            position: relative;
-            transform: translateX(200px); /* خارج الشاشة */
-            transition: transform 2.5s ease-in-out;
-            filter: drop-shadow(0 10px 10px rgba(0,0,0,0.5));
-        }
-
-        /* خدود حمرا */
-        .cheeks::after {
-            content: '';
             position: absolute;
-            bottom: 25%;
-            left: 15%;
-            width: 70%;
-            height: 20%;
-            background: rgba(255, 0, 0, 0.3);
-            border-radius: 50%;
-            filter: blur(5px);
-            z-index: -1;
+            right: 0;
+            transform: translateX(100px);
+            filter: drop-shadow(0 10px 10px rgba(0,0,0,0.5));
+            z-index: 2;
         }
 
-        /* حركة المشي */
-        .walking .bear-relax { transform: translateX(-15%); }
-        .walking .bear-malek { transform: translateX(15%); }
-        
-        /* حركة الحضن */
-        .hugging .bear-relax { transform: translateX(5%) scale(1.1); }
-        .hugging .bear-malek { transform: translateX(-5%) scale(1.1); }
+        /* أنيميشن المشي (تنطيط) */
+        @keyframes walkRight {
+            0% { transform: translateX(-100px) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-10px); }
+            100% { transform: translateX(-10px) translateY(0); } /* بيقف جنب التاني */
+        }
+
+        @keyframes walkLeft {
+            0% { transform: translateX(100px) translateY(0); }
+            50% { transform: translateX(50%) translateY(-10px); }
+            100% { transform: translateX(10px) translateY(0); } /* بيقف جنب التاني */
+        }
+
+        /* الكلاس اللي بيشغل المشي */
+        .walking .bear-relax { animation: walkRight 3s ease-in-out forwards; }
+        .walking .bear-malek { animation: walkLeft 3s ease-in-out forwards; }
+
+        /* كلاس الحضن */
+        .hugging .bear-relax { transform: translateX(-5px) scale(1.1) rotate(5deg); transition: all 0.5s ease; }
+        .hugging .bear-malek { transform: translateX(5px) scale(1.1) rotate(-5deg); transition: all 0.5s ease; }
 
         /* فقاعة الكلام */
         .speech-bubble {
             position: absolute;
-            top: -60px;
-            right: 20%;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%) scale(0);
             background: #fff;
             color: #000;
-            padding: 10px 15px;
-            border-radius: 15px;
+            padding: 10px 20px;
+            border-radius: 20px;
             font-weight: 800;
-            font-size: 14px;
+            font-size: 16px;
             opacity: 0;
-            transform: scale(0);
-            transition: all 0.5s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             z-index: 10;
-            width: 150px;
-            text-align: center;
+            white-space: nowrap;
         }
 
         .speech-bubble::after {
@@ -227,32 +218,32 @@
 
         .speech-bubble.show {
             opacity: 1;
-            transform: scale(1);
+            transform: translateX(-50%) scale(1);
         }
 
         /* القلب الكبير */
         .big-heart {
             position: absolute;
-            top: 30%;
+            top: 40%;
             left: 50%;
             transform: translate(-50%, -50%) scale(0);
-            font-size: 100px;
+            font-size: 120px;
             opacity: 0;
             transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             z-index: 20;
+            filter: drop-shadow(0 0 20px rgba(255, 0, 100, 0.6));
         }
 
         .big-heart.show {
             opacity: 1;
             transform: translate(-50%, -50%) scale(1.5);
-            animation: pulseHeart 1s infinite alternate;
+            animation: pulse 1s infinite alternate;
         }
 
-        @keyframes pulseHeart {
+        @keyframes pulse {
             from { transform: translate(-50%, -50%) scale(1.5); }
             to { transform: translate(-50%, -50%) scale(1.7); }
         }
-
     </style>
 </head>
 <body>
@@ -264,26 +255,24 @@
         <div class="bday-title">Happy Birthday</div>
         
         <div class="message-box">
-            <div class="message-text" id="typewriter"></div><span class="cursor" id="cursor">|</span>
+            <div class="message-text" id="typewriter"></div><span id="cursor">|</span>
         </div>
 
         <div class="from-relax">
             هدية من <span>Relax</span> ❤️
         </div>
 
-        <button class="next-btn" id="nextBtn" onclick="startScene()">المفاجأة الكبيرة 👆</button>
+        <button class="next-btn" id="nextBtn" onclick="startScene()">شوف المفاجأة 👆</button>
     </div>
 
-    <!-- المشهد الثاني (الدباديب) -->
+    <!-- المشهد الثاني (الأنيميشن) -->
     <div class="scene-page" id="scenePage">
+        <div class="speech-bubble" id="speech">كل سنة وانت طيب يا مالك ❤️</div>
         
-        <div class="speech-bubble" id="speech">أنت أغلى حد عندي يا مالك ❤️</div>
+        <div class="ground-line"></div>
         
         <div class="bears-container" id="bearsContainer">
-            <!-- دبدوب ريلاكس (أبيض بخدود حمرا) -->
-            <div class="bear-relax cheeks">🐻‍❄️</div>
-            
-            <!-- دبدوب مالك -->
+            <div class="bear-relax">🐻‍❄️</div>
             <div class="bear-malek">🧸</div>
         </div>
 
@@ -291,67 +280,64 @@
     </div>
 
     <script>
-        // --- 1. كتابة الكلام في الكارت ---
-        const message = "عارف إن الهدية متأخرة شوية.. بس كل سنة وإنت طيب يا مالك 🌟\n\nأتمنى لك سنة سعيدة مليانة نجاح وفرحة.\n\nعقبال 100 سنة يا رب!";
+        // الكلام اللي هيتكتب (شامل هدية اليوزر)
+        const message = "عارف إن الهدية متأخرة شوية.. بس كل سنة وإنت طيب يا مالك 🌟<br><br>دي هدية يوزر ثلاثي نادر <span class='highlight'>@vh0</span><br><br>الحق خده يفحل قبل ما حد ياخد.. وبحبك 🥀💕";
         let i = 0;
-        const typewriter = document.getElementById('typewriter');
+        const textElement = document.getElementById('typewriter');
         const cursor = document.getElementById('cursor');
         const nextBtn = document.getElementById('nextBtn');
 
+        // دالة الكتابة (بندعم HTML)
         function typeWriter() {
-            if (i < message.length) {
-                const char = message.charAt(i);
-                if (char === '\n') {
-                    typewriter.innerHTML += '<br>';
-                } else {
-                    typewriter.innerHTML += char;
-                }
+            // استخراج النص العادي من الـ HTML
+            const tempDiv = document.createElement("div");
+            tempDiv.innerHTML = message;
+            const textOnly = tempDiv.innerText;
+            
+            if (i < textOnly.length) {
+                textElement.innerHTML += textOnly.charAt(i);
                 i++;
-                setTimeout(typeWriter, 50); 
+                setTimeout(typeWriter, 40);
             } else {
-                // لما الكلام يخلص
-                cursor.style.display = 'none'; // اخفاء المؤشر
-                nextBtn.style.display = 'inline-block'; // اظهار الزر
+                // لما يخلص، نحط الكلام كامل بالـ HTML عشان اليوزر يبقى ملون
+                textElement.innerHTML = message;
+                cursor.style.display = 'none';
+                nextBtn.style.display = 'inline-block';
                 setTimeout(() => nextBtn.classList.add('show'), 100);
             }
         }
 
-        // بدء الكتابة أول ما الصفحة تفتح
-        window.onload = () => {
-            setTimeout(typeWriter, 500);
-        };
+        window.onload = () => setTimeout(typeWriter, 300);
 
-        // --- 2. الانتقال للمشهد التاني (الدباديب) ---
+        // تشغيل الأنيميشن
         function startScene() {
-            // اخفاء الكارت
             const card = document.getElementById('cardPage');
             card.style.opacity = '0';
-            card.style.transform = 'scale(0.8)';
+            card.style.transform = 'scale(0.8) translateY(-50px)';
             
-            // اظهار المشهد
-            const scene = document.getElementById('scenePage');
-            scene.classList.add('show');
-
-            const container = document.getElementById('bearsContainer');
-            const speech = document.getElementById('speech');
-            const bigHeart = document.getElementById('bigHeart');
-
-            // 1. الدباديب بتمشي ناحية بعض (بعد ثانية)
             setTimeout(() => {
-                container.classList.add('walking');
+                card.style.display = 'none';
+                const scene = document.getElementById('scenePage');
+                scene.classList.add('show');
+
+                const container = document.getElementById('bearsContainer');
+                const speech = document.getElementById('speech');
+                const bigHeart = document.getElementById('bigHeart');
+
+                // الدباديب بتمشي
+                setTimeout(() => container.classList.add('walking'), 300);
+
+                // ريلاكس بيتكلم
+                setTimeout(() => speech.classList.add('show'), 3200);
+
+                // الحضن والقلب
+                setTimeout(() => {
+                    speech.classList.remove('show');
+                    container.classList.add('hugging');
+                    bigHeart.classList.add('show');
+                }, 5500);
+
             }, 500);
-
-            // 2. ريلاكس بيتكلم (بعد 3 ثواني)
-            setTimeout(() => {
-                speech.classList.add('show');
-            }, 3000);
-
-            // 3. الدباديب بتحضن بعض والفقاعة تختفي (بعد 5.5 ثواني)
-            setTimeout(() => {
-                speech.classList.remove('show');
-                container.classList.add('hugging');
-                bigHeart.classList.add('show');
-            }, 5500);
         }
     </script>
 </body>
