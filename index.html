@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy birthday, Malek 🎂🧸</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Fredoka+One&family=Great+Vibes&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            background: #050510;
+            background-image: radial-gradient(circle at 50% -20%, #2a0a4a 0%, #050510 80%);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* --- خلفية متحركة (نجوم وبالونات) --- */
+        .bg-animation {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .floating-item {
+            position: absolute;
+            bottom: -10vh;
+            font-size: 24px;
+            opacity: 0.4;
+            animation: floatUp 15s linear infinite;
+            filter: drop-shadow(0 0 10px rgba(255,255,255,0.2));
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.5; }
+            90% { opacity: 0.5; }
+            100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* --- شاشة البداية (الهدية) --- */
+        .intro-screen {
+            position: absolute;
+            z-index: 10;
+            text-align: center;
+            transition: all 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            background: rgba(255, 255, 255, 0.03);
+            padding: 50px 40px;
+            border-radius: 50%;
+            border: 2px solid rgba(138, 43, 226, 0.3);
+            box-shadow: 0 0 50px rgba(138, 43, 226, 0.2), inset 0 0 30px rgba(138, 43, 226, 0.1);
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+        }
+
+        .intro-screen:hover {
+            box-shadow: 0 0 80px rgba(138, 43, 226, 0.5), inset 0 0 50px rgba(138, 43, 226, 0.3);
+        }
+
+        .gift-bear {
+            font-size: 100px;
+            animation: bounceAndSpin 3s infinite;
+            display: inline-block;
+        }
+
+        @keyframes bounceAndSpin {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+        }
+
+        .intro-text {
+            font-size: 20px;
+            color: #ffb6c1;
+            margin-top: 20px;
+            font-weight: 700;
+            text-shadow: 0 0 10px rgba(255, 182, 193, 0.5);
+            animation: pulseText 2s infinite;
+        }
+
+        @keyframes pulseText {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+
+        /* --- الكارت الرئيسي --- */
+        .main-card {
+            position: absolute;
+            z-index: 5;
+            width: 90%;
+            max-width: 450px;
+            background: rgba(20, 20, 30, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 30px rgba(0, 255, 255, 0.1);
+            opacity: 0;
+            transform: scale(0.8) translateY(50px);
+            transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            pointer-events: none;
+        }
+
+        .main-card.show {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+            pointer-events: auto;
+        }
+
+        /* تأثير النور الدوار خلف الكارت */
+        .main-card::before {
+            content: '';
+            position: absolute;
+            top: -2px; left: -2px; right: -2px; bottom: -2px;
+            background: linear-gradient(45deg, #ff00cc, #3333ff, #00ffff, #ff00cc);
+            background-size: 400%;
+            border-radius: 32px;
+            z-index: -1;
+            animation: glowingBorder 10s linear infinite;
+            opacity: 0.5;
+        }
+
+        @keyframes glowingBorder {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 400% 50%; }
+        }
+
+        .bear-avatar {
+            font-size: 80px;
+            margin-bottom: 10px;
+            display: inline-block;
+            animation: floatAvatar 3s ease-in-out infinite;
+        }
+
+        @keyframes floatAvatar {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .friend-name {
+            font-family: 'Great Vibes', cursive;
+            font-size: 65px;
+            color: #00ffff;
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.8), 0 0 40px rgba(0, 255, 255, 0.4);
+            margin-bottom: 5px;
+            line-height: 1;
+            direction: ltr;
+        }
+
+        .bday-title {
+            font-family: 'Fredoka One', cursive;
+            font-size: 24px;
+            color: #ff69b4;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        .divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #ff69b4, transparent);
+            margin: 20px 0;
+            width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .message-box {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            min-height: 120px;
+        }
+
+        .message-text {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #e0e0e0;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        /* مؤشر الكتابة */
+        .cursor {
+            display: inline-block;
+            width: 2px;
+            height: 18px;
+            background-color: #00ffff;
+            animation: blink 1s step-end infinite;
+            vertical-align: middle;
+            margin-right: 2px;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .from-relax {
+            margin-top: 25px;
+            font-size: 16px;
+            color: #aaa;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .from-relax span {
+            color: #ffd700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        .heart-btn {
+            background: none;
+            border: none;
+            font-size: 30px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            margin-top: 15px;
+        }
+
+        .heart-btn:hover {
+            transform: scale(1.3);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- الخلفية المتحركة -->
+    <div class="bg-animation" id="bgAnimation"></div>
+
+    <!-- شاشة البداية (الهدية) -->
+    <div class="intro-screen" id="introScreen" onclick="openGift()">
+        <div class="gift-bear">🧸🎁</div>
+        <div class="intro-text">اضغط لفتح هديتك يا مالك 👆</div>
+    </div>
+
+    <!-- الكارت الرئيسي -->
+    <div class="main-card" id="mainCard">
+        <div class="bear-avatar">🧸</div>
+        <div class="friend-name">Malek</div>
+        <div class="bday-title">Happy Birthday! 🎂</div>
+        
+        <div class="divider"></div>
+        
+        <div class="message-box">
+            <div class="message-text" id="typewriter"></div><span class="cursor" id="cursor"></span>
+        </div>
+
+        <div class="from-relax">
+            هدية من صاحبك الدبدوب <span>Relax</span> ❤️
+        </div>
+
+        <button class="heart-btn" onclick="spawnHearts()">💖</button>
+    </div>
+
+    <script>
+        // --- 1. توليد الخلفية المتحركة ---
+        const bgAnimation = document.getElementById('bgAnimation');
+        const emojis = ['🧸', '❤️', '🎈', '✨', '🎁', '💖', '🎉'];
+        
+        for (let i = 0; i < 25; i++) {
+            const item = document.createElement('div');
+            item.classList.add('floating-item');
+            item.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+            item.style.left = Math.random() * 100 + 'vw';
+            item.style.animationDuration = (Math.random() * 10 + 10) + 's';
+            item.style.animationDelay = (Math.random() * 10) + 's';
+            item.style.fontSize = (Math.random() * 20 + 15) + 'px';
+            bgAnimation.appendChild(item);
+        }
+
+        // --- 2. وظيفة فتح الهدية ---
+        function openGift() {
+            const intro = document.getElementById('introScreen');
+            const card = document.getElementById('mainCard');
+            
+            // اخفاء شاشة البداية
+            intro.style.transform = 'scale(0) rotate(180deg)';
+            intro.style.opacity = '0';
+            
+            setTimeout(() => {
+                intro.style.display = 'none';
+                // اظهار الكارت
+                card.classList.add('show');
+                // بدء القصاصات
+                fireConfetti();
+                // بدء كتابة الرسالة
+                typeWriter();
+            }, 800);
+        }
+
+        // --- 3. تأثير القصاصات الملونة ---
+        function fireConfetti() {
+            var duration = 5 * 1000;
+            var animationEnd = Date.now() + duration;
+            var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+            var colors = ['#ff00cc', '#3333ff', '#00ffff', '#ffd700', '#ff69b4'];
+
+            var interval = setInterval(function() {
+                var timeLeft = animationEnd - Date.now();
+                if (timeLeft <= 0) return clearInterval(interval);
+                
+                var particleCount = 50 * (timeLeft / duration);
+                confetti(Object.assign({}, defaults, { particleCount, colors: colors, origin: { x: Math.random(), y: Math.random() - 0.2 } }));
+            }, 250);
+        }
+
+        // --- 4. تأثير الكتابة (Typewriter) ---
+        const message = "كل سنة وإنت طيب يا مالك 🌟\nأتمنى لك سنة مليانة نجاح وفرحة وحب.\nإنت مش بس صديقي، إنت أخ وغالي جداً عليا.\nعقبال 100 سنة يا رب وعقبال ما نحتفل بيك دايماً! 🎂❤️";
+        let i = 0;
+        
+        function typeWriter() {
+            if (i < message.length) {
+                const char = message.charAt(i);
+                if (char === '\n') {
+                    document.getElementById('typewriter').innerHTML += '<br>';
+                } else {
+                    document.getElementById('typewriter').innerHTML += char;
+                }
+                i++;
+                setTimeout(typeWriter, 50); // سرعة الكتابة
+            } else {
+                document.getElementById('cursor').style.display = 'none'; // اخفاء المؤشر
+            }
+        }
+
+        // --- 5. زر القلوب ---
+        function spawnHearts() {
+            confetti({
+                particleCount: 30,
+                angle: 90,
+                spread: 45,
+                origin: { y: 0.8 },
+                colors: ['#ff69b4', '#ff1493', '#ff0000'],
+                shapes: ['circle'],
+                scalar: 1.2
+            });
+        }
+    </script>
+</body>
+</html>
