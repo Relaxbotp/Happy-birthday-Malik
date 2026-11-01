@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Happy Birthday, Malek 🎂🧸</title>
+    <title>Happy Birthday, Malek</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
@@ -15,36 +15,15 @@
         }
 
         body {
-            background: #0a0a0f;
-            background-image: radial-gradient(circle at 50% 0%, #1a103c 0%, #0a0a0f 70%);
+            /* لون أسود ملكي مع لمسة ذهبية */
+            background: #0a0808;
+            background-image: radial-gradient(circle at top, #1f1811 0%, #0a0808 100%);
             color: #fff;
             height: 100dvh;
             display: flex;
             justify-content: center;
             align-items: center;
             overflow: hidden;
-            position: relative;
-        }
-
-        /* --- نجوم متلألئة في الخلفية --- */
-        .stars {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none;
-            background-image: 
-                radial-gradient(2px 2px at 10% 20%, #fff, transparent),
-                radial-gradient(2px 2px at 40% 60%, #ffb6c1, transparent),
-                radial-gradient(2px 2px at 70% 30%, #00ffff, transparent),
-                radial-gradient(1px 1px at 90% 80%, #fff, transparent),
-                radial-gradient(1.5px 1.5px at 30% 90%, #ffd700, transparent);
-            background-size: 200px 200px;
-            animation: twinkle 4s infinite alternate;
-            z-index: 0;
-        }
-
-        @keyframes twinkle {
-            0% { opacity: 0.5; }
-            100% { opacity: 1; }
         }
 
         /* --- شاشة البداية (الهدية) --- */
@@ -52,133 +31,97 @@
             position: absolute;
             z-index: 10;
             text-align: center;
-            transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            transition: all 0.6s ease;
             cursor: pointer;
         }
 
-        .gift-bear {
-            font-size: 120px;
-            animation: floatGift 2.5s ease-in-out infinite;
-            filter: drop-shadow(0 10px 20px rgba(255, 182, 193, 0.4));
+        .gift-box {
+            font-size: 110px;
+            animation: pulseGift 2s infinite alternate;
             display: inline-block;
+            filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.4));
         }
 
-        @keyframes floatGift {
-            0%, 100% { transform: translateY(0) scale(1); }
-            50% { transform: translateY(-15px) scale(1.05); }
+        @keyframes pulseGift {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
         }
 
         .intro-text {
             font-size: 20px;
-            color: #ffd700;
+            color: #d4af37; /* ذهبي */
             margin-top: 20px;
             font-weight: 700;
-            letter-spacing: 1px;
-            animation: pulseText 2s infinite;
-            text-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+            animation: blinkText 2s infinite;
         }
 
-        @keyframes pulseText {
-            0%, 100% { opacity: 0.8; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.05); }
+        @keyframes blinkText {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
         }
 
         /* --- الكارت الرئيسي --- */
-        .main-card-wrapper {
+        .main-card {
             position: absolute;
             z-index: 5;
             width: 90%;
-            max-width: 400px;
+            max-width: 380px;
+            background: #14100e;
+            border: 2px solid #d4af37; /* إطار ذهبي */
+            border-radius: 20px;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.15);
             opacity: 0;
-            transform: scale(0.8) translateY(30px);
-            transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform: translateY(20px);
+            transition: all 0.8s ease;
             pointer-events: none;
-            padding: 2px;
-            border-radius: 28px;
         }
 
-        .main-card-wrapper.show {
+        .main-card.show {
             opacity: 1;
-            transform: scale(1) translateY(0);
+            transform: translateY(0);
             pointer-events: auto;
         }
 
-        /* الإطار المتوهج الفخم */
-        .main-card-wrapper::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            border-radius: 28px;
-            background: linear-gradient(45deg, #ff00cc, #3333ff, #00ffff, #ffd700, #ff00cc);
-            background-size: 300% 300%;
-            z-index: -1;
-            animation: borderGlow 6s linear infinite;
-        }
-
-        @keyframes borderGlow {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .card-content {
-            background: rgba(15, 15, 25, 0.85);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border-radius: 26px;
-            padding: 25px 20px;
-            text-align: center;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .bear-avatar {
+        .bear-icon {
             font-size: 60px;
-            margin-bottom: 5px;
-            animation: floatAvatar 3s ease-in-out infinite;
-        }
-
-        @keyframes floatAvatar {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
+            margin-bottom: 10px;
+            filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.3));
         }
 
         .friend-name {
             font-family: 'Playfair Display', serif;
             font-style: italic;
-            font-size: 55px;
-            color: #00ffff;
-            text-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
-            margin-bottom: 0px;
+            font-size: 50px;
+            color: #d4af37; /* ذهبي */
+            text-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+            margin-bottom: 5px;
             line-height: 1;
             direction: ltr;
         }
 
         .bday-title {
-            font-size: 20px;
-            color: #ff69b4;
-            margin-bottom: 15px;
-            font-weight: 800;
-            letter-spacing: 1px;
+            font-size: 18px;
+            color: #fff;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
         }
 
         .divider {
             height: 1px;
-            background: linear-gradient(90deg, transparent, #ff69b4, transparent);
-            margin: 10px auto 15px;
-            width: 70%;
+            background: linear-gradient(90deg, transparent, #d4af37, transparent);
+            margin: 0 auto 20px;
+            width: 80%;
         }
 
         .message-box {
-            background: rgba(0, 0, 0, 0.4);
+            background: #0a0808;
             padding: 15px;
-            border-radius: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            border: 1px solid #33291c;
             position: relative;
-            min-height: 120px; /* زيادة الطول شوية عشان الكلام الجديد */
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+            min-height: 140px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -188,7 +131,7 @@
             font-size: 16px;
             line-height: 1.8;
             color: #e0e0e0;
-            font-weight: 700;
+            font-weight: 600;
             text-align: center;
         }
 
@@ -196,7 +139,7 @@
             display: inline-block;
             width: 2px;
             height: 15px;
-            background-color: #00ffff;
+            background-color: #d4af37;
             animation: blink 0.8s step-end infinite;
             vertical-align: middle;
             margin-right: 2px;
@@ -208,119 +151,81 @@
         }
 
         .from-relax {
-            margin-top: 15px;
+            margin-top: 20px;
             font-size: 14px;
-            color: #aaa;
+            color: #888;
             font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
         }
 
         .from-relax span {
-            color: #ffd700;
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+            color: #d4af37;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
         }
 
         .action-btn {
-            background: linear-gradient(45deg, #ff00cc, #3333ff);
+            background: #d4af37;
             border: none;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 20px;
-            font-weight: bold;
+            color: #000;
+            padding: 10px 25px;
+            border-radius: 8px;
+            font-weight: 900;
             font-size: 14px;
             cursor: pointer;
-            margin-top: 15px;
-            transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 5px 15px rgba(255, 0, 204, 0.3);
+            margin-top: 20px;
+            transition: background 0.3s;
         }
 
         .action-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 25px rgba(255, 0, 204, 0.5);
+            background: #fce07e;
         }
     </style>
 </head>
 <body>
 
-    <div class="stars"></div>
-
     <!-- شاشة البداية (الهدية) -->
     <div class="intro-screen" id="introScreen" onclick="openGift()">
-        <div class="gift-bear">🧸🎁</div>
-        <div class="intro-text">اضغط لفتح المفاجأة يا مالك 👆</div>
+        <div class="gift-box">🎁</div>
+        <div class="intro-text">اضغط لفتح الهدية 👆</div>
     </div>
 
     <!-- الكارت الرئيسي -->
-    <div class="main-card-wrapper" id="mainCard">
-        <div class="card-content">
-            <div class="bear-avatar">🧸</div>
-            <div class="friend-name">Malek</div>
-            <div class="bday-title">Happy Birthday! 🎂</div>
-            
-            <div class="divider"></div>
-            
-            <div class="message-box">
-                <div class="message-text" id="typewriter"></div><span class="cursor" id="cursor"></span>
-            </div>
-
-            <div class="from-relax">
-                هدية من صاحبك الدبدوب <span>Relax</span> ❤️
-            </div>
-
-            <button class="action-btn" onclick="magicHearts()">أرسل قلوب 💖</button>
+    <div class="main-card" id="mainCard">
+        <div class="bear-icon">🧸</div>
+        <div class="friend-name">Malek</div>
+        <div class="bday-title">HAPPY BIRTHDAY</div>
+        
+        <div class="divider"></div>
+        
+        <div class="message-box">
+            <div class="message-text" id="typewriter"></div><span class="cursor" id="cursor"></span>
         </div>
+
+        <div class="from-relax">
+            هدية من <span>Relax</span> ❤️
+        </div>
+
+        <button class="action-btn" onclick="magicHearts()">أرسل قلوب 💖</button>
     </div>
 
     <script>
-        // --- 1. وظيفة فتح الهدية ---
+        // فتح الهدية
         function openGift() {
-            const intro = document.getElementById('introScreen');
-            const card = document.getElementById('mainCard');
+            document.getElementById('introScreen').style.display = 'none';
+            document.getElementById('mainCard').classList.add('show');
             
-            intro.style.transform = 'scale(0) translateY(50px)';
-            intro.style.opacity = '0';
-            
-            setTimeout(() => {
-                intro.style.display = 'none';
-                card.classList.add('show');
-                fireConfetti();
-                typeWriter();
-            }, 600);
+            // تشغيل القصاصات مرة واحدة (عشان ميهنجش)
+            fireConfetti();
+            // بدء كتابة الرسالة
+            typeWriter();
         }
 
-        // --- 2. تأثير القصاصات ---
+        // القصاصات
         function fireConfetti() {
-            var duration = 3 * 1000;
-            var end = Date.now() + duration;
-            var colors = ['#ff00cc', '#3333ff', '#00ffff', '#ffd700', '#ff69b4'];
-
-            (function frame() {
-                confetti({
-                    particleCount: 4,
-                    angle: 60,
-                    spread: 55,
-                    origin: { x: 0 },
-                    colors: colors
-                });
-                confetti({
-                    particleCount: 4,
-                    angle: 120,
-                    spread: 55,
-                    origin: { x: 1 },
-                    colors: colors
-                });
-
-                if (Date.now() < end) {
-                    requestAnimationFrame(frame);
-                }
-            }());
+            var colors = ['#d4af37', '#ffffff', '#fce07e'];
+            confetti({ particleCount: 80, spread: 100, origin: { y: 0.6 }, colors: colors });
         }
 
-        // --- 3. تأثير الكتابة (الرسالة الجديدة) ---
-        // غيرت الكلام هنا لرسالتك عن اليوزر النادر
+        // الرسالة اللي بتتكتب
         const message = "دي هديه مني ليك يوزر ثلاثي نادر @vh0\n\nالحق خده يفحل قبل ما حد ياخد\n\nوبحبك 🥀💕";
         let i = 0;
         
@@ -333,21 +238,19 @@
                     document.getElementById('typewriter').innerHTML += char;
                 }
                 i++;
-                setTimeout(typeWriter, 50); // سرعة الكتابة
+                setTimeout(typeWriter, 50); 
             } else {
                 document.getElementById('cursor').style.display = 'none';
             }
         }
 
-        // --- 4. زر القلوب التفاعلي ---
+        // زر القلوب
         function magicHearts() {
             confetti({
-                particleCount: 40,
-                spread: 100,
+                particleCount: 30,
+                spread: 80,
                 origin: { y: 0.8 },
-                colors: ['#ff69b4', '#ff1493', '#ff0000'],
-                shapes: ['circle'],
-                scalar: 1.5
+                colors: ['#ff1493', '#ff0000', '#d4af37']
             });
         }
     </script>
